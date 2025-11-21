@@ -32,28 +32,25 @@ def prepare_features(input_data: HHInputSchema) -> pd.DataFrame:
     skills_count = len(input_data.key_skills) if input_data.key_skills else 0
     description_len = len(input_data.vacancy_description) if input_data.vacancy_description else 0
     has_location = 1 if input_data.location_lat or input_data.location_lon else 0
-    
-    # Создаем текстовый признак из навыков (как в обучении!)
+
     skills_text = ', '.join([s.strip() for s in input_data.key_skills]) if input_data.key_skills and len(input_data.key_skills) > 0 else 'no skills'
-    
-    # Создаем эмбеддинги навыков через SentenceTransformer
+
     skills_embedding = embedding_model.encode(skills_text)
 
-    # Базовые признаки
     features = {
         'profession_id': input_data.profession_id or 0,
         'skills_count': skills_count,
         'description_len': description_len,
         'has_location': has_location,
         'accept_temporary': int(input_data.accept_temporary) if input_data.accept_temporary is not None else 0,
-        'experience': input_data.experience.value if input_data.experience else 'noExperience',
-        'schedule': input_data.schedule.value if input_data.schedule else 'flexible',
-        'work_hours': input_data.work_hours.value if input_data.work_hours else 'other',
     }
-    
-    # Добавляем эмбеддинги (384 признака)
+
     for i, emb_value in enumerate(skills_embedding):
-        features[f'skill_emb_{i}'] = emb_value
+        features[f'skill_emb_{i}'] = float(emb_value)
+
+    features['experience'] = input_data.experience.value if input_data.experience else 'noExperience'
+    features['schedule'] = input_data.schedule.value if input_data.schedule else 'flexible'
+    features['work_hours'] = input_data.work_hours.value if input_data.work_hours else 'other'
 
     return pd.DataFrame([features])
 
