@@ -1,7 +1,7 @@
 import datetime
 from enum import StrEnum, auto
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class CianOutputSchema(BaseModel):
@@ -14,20 +14,32 @@ class TypeNameTypeEnum(StrEnum):
 
 
 class CianInputSchema(BaseModel):
-    ad_id: str
-    type_nm: TypeNameTypeEnum
-    category_nm: str
-    title: str
-    full_address_txt: str
-    total_area: float
-    floor_no: int
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "type_nm": "sale",
+                "category_nm": "officeRent",
+                "title": "Продажа офиса 150 м² в Москве",
+                "full_address_txt": "Москва, ул. Тверская, 12",
+                "total_area": 150.0,
+                "floor_no": 5,
+                "desc_txt": "Офисное помещение площадью 150 кв.м. на 5 этаже бизнес-центра класса А. Отличная транспортная доступность, рядом метро. Современная отделка, готов к использованию.",
+                "year_built": 2015,
+                "city_nm": "Москва",
+                "latitude": 55.755819,
+                "longitude": 37.617644
+            }
+        }
+    )
+
+    type_nm: TypeNameTypeEnum | None = None
+    category_nm: str | None = None
+    title: str | None = None
+    full_address_txt: str | None = None
+    total_area: float | None = None
+    floor_no: int | None = None
     desc_txt: str | None = None
-    price_amt: float
-    sq_price_amt: float
-    url_txt: str
-    year_built: int | None
-    ad_dttm: datetime.datetime
-    create_dttm: datetime.datetime | None = None
-    city_nm: str
-    latitude: float
-    longitude: float
+    year_built: int | None = None
+    city_nm: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
