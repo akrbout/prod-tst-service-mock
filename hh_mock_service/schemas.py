@@ -1,7 +1,7 @@
 import datetime
 from enum import StrEnum, auto
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ExperienceTypeEnum(StrEnum):
@@ -54,24 +54,38 @@ class SimilarSchema(BaseModel):
     vacancy_id: int
 
 class HHInputSchema(BaseModel):
-    company_id: int
-    vacancy_id: int
-    company_nm: str
-    vacancy_nm: str
-    experience: ExperienceTypeEnum
-    schedule: ScheduleTypeEnum
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "company_nm": "Яндекс",
+                "vacancy_nm": "Python Backend Developer",
+                "experience": "between3And6",
+                "schedule": "five_on_two_off",
+                "work_hours": "hours_8",
+                "location": "Москва",
+                "vacancy_description": "Разработка и поддержка высоконагруженных backend-сервисов на Python. Работа с микросервисной архитектурой, PostgreSQL, Redis, Kafka. Участие в проектировании новых функций и оптимизации существующих.",
+                "key_skills": ["Python", "Django", "PostgreSQL", "Redis", "Docker", "Git"],
+                "accept_temporary": False,
+                "metro_line_nm": "Сокольническая линия",
+                "metro_station_nm": "Красные Ворота",
+                "location_lat": 55.755819,
+                "location_lon": 37.617644,
+                "profession_id": 96
+            }
+        }
+    )
+
+    company_nm: str | None = None
+    vacancy_nm: str | None = None
+    experience: ExperienceTypeEnum | None = None
+    schedule: ScheduleTypeEnum | None = None
     work_hours: WorkHoursTypeEnum | None = None
-    publication_dt: datetime.datetime
-    location: str
-    vacancy_description: str
-    key_skills: list[str]
-    accept_temporary: bool
-    similar_ids: list[SimilarSchema]
-    current_view_count: int
-    scraped_timestamp: int
-    metro_line_nm: str
-    metro_station_nm: str
-    location_lat: float
-    location_lon: float
-    profession_id: int
-    accept_incomplete_resumes: bool
+    location: str | None = None
+    vacancy_description: str | None = None
+    key_skills: list[str] | None = None
+    accept_temporary: bool | None = None
+    metro_line_nm: str | None = None
+    metro_station_nm: str | None = None
+    location_lat: float | None = None
+    location_lon: float | None = None
+    profession_id: int | None = None
