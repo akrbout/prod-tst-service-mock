@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "prod-tst-service-mock"
+version = "0.1.0"
+description = "HH service"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = {extras = ["standard"], version = "^0.121.3"}
+scikit-learn = "^1.7.2"
+pandas = "^2.3.3"
+catboost = "^1.2.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
