@@ -15,14 +15,12 @@ MODEL_FROM_PATH = Path(__file__).parent.parent / "models" / "catboost_from_rub.c
 MODEL_TO_PATH = Path(__file__).parent.parent / "models" / "catboost_to_rub.cbm"
 EMBEDDING_MODEL_PATH = Path(__file__).parent.parent / "models" / "sentence_transformer_model"
 
-# Загружаем CatBoost модели
 model_from = CatBoostRegressor()
 model_from.load_model(str(MODEL_FROM_PATH))
 
 model_to = CatBoostRegressor()
 model_to.load_model(str(MODEL_TO_PATH))
 
-# Загружаем Embedding модель
 embedding_model = SentenceTransformer(str(EMBEDDING_MODEL_PATH))
 
 logging.basicConfig(level=logging.INFO)
