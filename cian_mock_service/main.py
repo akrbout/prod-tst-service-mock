@@ -11,7 +11,7 @@ app = FastAPI(
     title="Area Offer Predict Service",
     description="Сервис для кейса `Где выгодно купить помещение?`",
 )
-main_router = APIRouter()
+main_router = APIRouter(prefix="/api")
 
 MODEL_PATH = Path(__file__).parent.parent / "models" / "catboost_cian_price.cbm"
 model = CatBoostRegressor()

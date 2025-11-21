@@ -12,7 +12,7 @@ app = FastAPI(
     title="Salary Predict Service",
     description="Сервис для кейса `Сколько ты зарабатываешь?`",
 )
-main_router = APIRouter()
+main_router = APIRouter(prefix="/api")
 
 MODEL_FROM_PATH = Path(__file__).parent.parent / "models" / "catboost_from_rub.cbm"
 MODEL_TO_PATH = Path(__file__).parent.parent / "models" / "catboost_to_rub.cbm"

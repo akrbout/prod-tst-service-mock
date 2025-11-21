@@ -10,7 +10,7 @@ app = FastAPI(
     title="Delivery Predict Service",
     description="Сервис для кейса `Тариф, я выбираю тебя!`",
 )
-main_router = APIRouter()
+main_router = APIRouter(prefix="/api")
 
 MODEL_PATH = Path(__file__).parent.parent / "models" / "major_express_catboost_model.cbm"
 CATEGORICAL_FEATURES = ['departure', 'destination', 'destination_tk', 'tariff']
