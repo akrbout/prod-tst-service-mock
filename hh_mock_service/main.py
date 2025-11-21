@@ -8,8 +8,11 @@ from sentence_transformers import SentenceTransformer
 
 from hh_mock_service.schemas import HHInputSchema, SalaryOutputSchema
 
-app = FastAPI()
-main_router = APIRouter(prefix="/api")
+app = FastAPI(
+    title="Salary Predict Service",
+    description="Сервис для кейса `Сколько ты зарабатываешь?`",
+)
+main_router = APIRouter()
 
 MODEL_FROM_PATH = Path(__file__).parent.parent / "models" / "catboost_from_rub.cbm"
 MODEL_TO_PATH = Path(__file__).parent.parent / "models" / "catboost_to_rub.cbm"

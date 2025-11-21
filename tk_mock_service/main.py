@@ -6,8 +6,11 @@ from catboost import CatBoostRegressor, Pool
 
 from tk_mock_service.schemas import TkInputSchema, TkOutputSchema
 
-app = FastAPI()
-main_router = APIRouter(prefix="/api")
+app = FastAPI(
+    title="Delivery Predict Service",
+    description="Сервис для кейса `Тариф, я выбираю тебя!`",
+)
+main_router = APIRouter()
 
 MODEL_PATH = Path(__file__).parent.parent / "models" / "major_express_catboost_model.cbm"
 CATEGORICAL_FEATURES = ['departure', 'destination', 'destination_tk', 'tariff']

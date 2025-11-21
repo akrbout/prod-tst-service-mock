@@ -7,8 +7,11 @@ from catboost import CatBoostRegressor
 
 from cian_mock_service.schemas import CianInputSchema, CianOutputSchema
 
-app = FastAPI()
-main_router = APIRouter(prefix="/api")
+app = FastAPI(
+    title="Area Offer Predict Service",
+    description="Сервис для кейса `Где выгодно купить помещение?`",
+)
+main_router = APIRouter()
 
 MODEL_PATH = Path(__file__).parent.parent / "models" / "catboost_cian_price.cbm"
 model = CatBoostRegressor()

@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  cian-mock-service:
+    image: prod-olymp:latest
+    environment:
+      APP_TYPE: "cian"
+    ports:
+      - "3202:80"
+  hh-mock-service:
+    image: prod-olymp:latest
+    environment:
+      APP_TYPE: "hh"
+    ports:
+      - "3203:80"
+  tk-mock-service:
+    image: prod-olymp:latest
+    environment:
+      APP_TYPE: "tk"
+    ports:
+      - "3204:80"
