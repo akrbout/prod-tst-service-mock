@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 import pandas as pd
+import math
 from fastapi import FastAPI, APIRouter
 from catboost import CatBoostRegressor
 
@@ -47,11 +48,11 @@ async def predict(input: CianInputSchema) -> CianOutputSchema:
         features = prepare_features(input)
         prediction = model.predict(features)[0]
         logger.info(f"Predicted price: {prediction:.2f} RUB")
-        return CianOutputSchema(price=float(prediction))
+        return CianOutputSchema(price=math.trunc(float(prediction)))
     except Exception as e:
         logger.error(f"Error processing request: {e}")
         fallback_area = input.total_area if input.total_area else 50.0
         fallback_price = fallback_area * 100000
-        return CianOutputSchema(price=fallback_price)
+        return CianOutputSchema(price=math.trunc(fallback_price))
 
 app.include_router(main_router)

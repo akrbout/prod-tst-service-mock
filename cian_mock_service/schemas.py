@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 class CianOutputSchema(BaseModel):
-    price: float = Field()
+    price: int = Field()
 
 
 class TypeNameTypeEnum(StrEnum):
